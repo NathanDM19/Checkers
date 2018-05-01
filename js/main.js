@@ -352,12 +352,14 @@ $(document).ready(function() {
       redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`);
       whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`);
     }
-    for (let i = 1; i <= showReds; i++) {
-      redOut[`$piece${i}`].css({visibility: "visible"});
-    }
-    let showWhites = 12-totalWhitePieces;
-    for (let i = 1; i <= showWhites; i++) {
-      whiteOut[`$piece${i}`].css({visibility: "visible"});
+    if (toggle === 0) {
+      for (let i = 1; i <= showReds; i++) {
+        redOut[`$piece${i}`].css({visibility: "visible"});
+      }
+      let showWhites = 12-totalWhitePieces;
+      for (let i = 1; i <= showWhites; i++) {
+        whiteOut[`$piece${i}`].css({visibility: "visible"});
+      }
     }
     if (totalRedPieces === 0) {
       console.log("White Wins!");
