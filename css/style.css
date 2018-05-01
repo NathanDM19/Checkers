@@ -54,7 +54,7 @@ body {
   border-radius: 50%;
   border: 1px solid black;
 }
-.currentTurn {
+currentTurn {
   position: relative;
   top: -475px;
   left: 200px;

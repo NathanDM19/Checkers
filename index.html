@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-database.js"></script>
   <script src="js/jq.js" charset="utf-8"></script>
   <script src="js/main.js" charset="utf-8"></script>
 </head>
@@ -81,7 +83,7 @@
   <div class="currentTurn"></div>
   <script>
   // Initialize Firebase
-  var config = {
+  let config = {
     apiKey: "AIzaSyAnBrRbopVplYsW345JsiWF1Rs3lzWjc0Q",
     authDomain: "checkers-nathan.firebaseapp.com",
     databaseURL: "https://checkers-nathan.firebaseio.com",
@@ -90,6 +92,7 @@
     messagingSenderId: "781239161437"
   };
   firebase.initializeApp(config);
+  let database = firebase.database();
 </script>
 </body>
 </html>
