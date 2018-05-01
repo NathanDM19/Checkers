@@ -21,6 +21,14 @@ $(document).ready(function() {
   let rowFrom;
   let columnFrom;
   let highlighted = [];
+  let redOut = {};
+  let whiteOut = {};
+  for (let i = 1; i < 13; i++) {
+    redOut[`$piece${i}`] = eval(`$('#red${i}')`);
+  }
+  for (let i = 1; i < 13; i++) {
+    whiteOut[`$piece${i}`] = eval(`$('#white${i}')`);
+  }
   for (let i = 1; i < 65; i++) {
     highlighted[i] = false;
     squares[`$box${i}`] = eval(`$('.box${i}')`);
@@ -337,7 +345,20 @@ $(document).ready(function() {
     picking = true;
   }
   const $currentTurn = $('.currentTurn');
+  let toggle = 0;
   const changeTurn = function () {
+    let showReds = 12-totalRedPieces;
+    if (toggle === 1) {
+      redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`);
+      whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`);
+    }
+    for (let i = 1; i <= showReds; i++) {
+      redOut[`$piece${i}`].css({visibility: "visible"});
+    }
+    let showWhites = 12-totalWhitePieces;
+    for (let i = 1; i <= showWhites; i++) {
+      whiteOut[`$piece${i}`].css({visibility: "visible"});
+    }
     if (totalRedPieces === 0) {
       console.log("White Wins!");
     } else if (totalWhitePieces === 0) {
@@ -349,5 +370,47 @@ $(document).ready(function() {
       $currentTurn.css({backgroundColor: "white"});
     }
   }
+  const $toggleButton = $('.toggle');
+  let wigout = 0;
+  let counter = 0;
+  $toggleButton.on("click", function() {
+    if (wigout === 0) {
+      counter = 0;
+      wigout = 1;
+    } else if (wigout === 1 && toggle === 1) {
+      counter = 2;
+    } else {
+      counter = 0;
+    }
+    console.log(counter);
+    console.log("HELLO");
+    for (j = 0; j <= counter; j++) {
+      if (toggle === 0) {
+        for (i = 2; i < 13; i++) {
+          redOut[`$piece${i}`].css({visibility: "hidden"});
+          whiteOut[`$piece${i}`].css({visibility: "hidden"});
+        }
+        $currentTurn.css({width: "60px", height: "60px", border: "1px solid black", top: "-762px", left: "-166px"});
+        redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`).css({top: "-460px", visibility: "visible"});
+        whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`).css({left: "625px", top: "-229px", visibility: "visible"});
+        $toggleButton.css({marginTop: "-9.7%"});
+        toggle = 1;
+      }
+      else {
+        $currentTurn.css({width: "200px", height: "200px", border: "2px solid black", top: "-685px", left: "-1000px"});
+        redOut.$piece1.html("&nbsp;").css({top: "-534px", visibility: "hidden"});
+        whiteOut.$piece1.html("&nbsp;").css({left: "626px", top: "-304px", visibility: "hidden"});
+        whiteOut.$piece1.toggle();
+        $toggleButton.css({marginTop: "-9.7%"});
+        for (i = 1; i <= 12-totalWhitePieces; i++) {
+          whiteOut[`$piece${i}`].css({visibility: "visible"});
+        }
+        for (i = 1; i <= 12-totalRedPieces; i++) {
+          redOut[`$piece${i}`].css({visibility: "visible"});
+        }
+        toggle = 0;
+      }
+    }
+  });
   gameStart();
 });

@@ -16,11 +16,19 @@ body {
   width: 100%;
   height: 100%;
 }
+.title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
+  margin-top: -5px;
+  margin-bottom: -80px;
+  text-align: center;
+}
 .gameBoard {
-  margin: 5% auto;
+  margin: 5% 0 5% 29%;
   border: 5px solid #17252A;
   width: 590px;
   height: 590px;
+  display: inline-block;
 }
 .square {
   margin-top: -1px;
@@ -54,13 +62,163 @@ body {
   border-radius: 50%;
   border: 1px solid black;
 }
-currentTurn {
+.currentTurn {
   position: relative;
-  top: -475px;
-  left: 200px;
+  top: -685px;
+  margin-bottom: -25%;
+  left: -1000px;
   width: 200px;
   height: 200px;
   background-color: white;
   border-radius: 50%;
   border: 2px solid black;
+  display: inline-block;
+}
+.redPieceOut {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: red;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  top: -520px;
+  visibility: hidden;
+}
+.whitePieceOut {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  top: -290px;
+  visibility: hidden;
+}
+.test {
+  position: absolute;
+  width: 300px;
+  height: 10px;
+  background-color: orange;
+  top: 444px;
+  left: 985px;
+  visibility: hidden;
+}
+.toggle {
+  margin: -9% 0 0 47%;
+  width: 70px;
+  height: 45px;
+  background-color: #2B7A78;
+  border: 2px solid black;
+  text-align: center;
+  padding-top: 10px;
+  border-radius: 15%;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.toggle:hover {
+  /* background-color: #3AAFA9; */
+  cursor: pointer;
+  font-size: 18px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#red1 {
+  text-align: center;
+  line-height: 1.3;
+  font-size: 48px;
+}
+#red2 {
+  top: -495px;
+  left: -66px;
+}
+#red3 {
+  top: -465px;
+  left: -131px;
+}
+#red4 {
+  top: -435px;
+  left: -197px;
+}
+#red5 {
+  top: -405px;
+  left: -263px;
+}
+#red6 {
+  top: -375px;
+  left: -329px;
+
+}
+#red7 {
+  top: -661px;
+  left: 1095px;
+}
+#red8 {
+  top: -636px;
+  left: 1029px;
+}
+#red9 {
+  top: -606px;
+  left: 963px;
+}
+#red10 {
+  top: -576px;
+  left: 897px;
+}
+#red11 {
+  top: -546px;
+  left: 831px;
+}
+#red12 {
+  top: -516px;
+  left: 765px;
+}
+#white1 {
+  left: 626px;
+  text-align: center;
+  line-height: 1.3;
+  font-size: 48px;
+}
+#white2 {
+  left: 560px;
+  top: -265px;
+}
+#white3 {
+  left: 494px;
+  top: -235px;
+}
+#white4 {
+  left: 428px;
+  top: -205px;
+}
+#white5 {
+  left: 362px;
+  top: -175px;
+}
+#white6 {
+  left: 296px;
+  top: -145px;
+}
+#white7 {
+  left: 304px;
+}
+#white8 {
+  left: 238px;
+  top: -265px;
+}
+#white9 {
+  left: 172px;
+  top: -235px;
+}
+#white10 {
+  left: 106px;
+  top: -205px;
+}
+#white11 {
+  left: 40px;
+  top: -175px;
+}
+#white12 {
+  left: -26px;
+  top: -145px;
 }
