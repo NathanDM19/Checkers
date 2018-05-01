@@ -16,6 +16,22 @@ body {
   width: 100%;
   height: 100%;
 }
+.redContainer {
+  display: inline-block;
+  width: 10%;
+  height: 30%;
+  /* border: 1px solid red; */
+  position: relative;
+  top: -370px;
+}
+.whiteContainer {
+  display: inline-block;
+  width: 10%;
+  height: 30%;
+  /* border: 1px solid red; */
+  position: relative;
+  left: -147px;
+}
 .title {
   font-family: 'Do Hyeon', sans-serif;
   font-size: 60px;
@@ -24,7 +40,7 @@ body {
   text-align: center;
 }
 .gameBoard {
-  margin: 5% 0 5% 29%;
+  margin: 5% 0 5% 0.5%;
   border: 5px solid #17252A;
   width: 590px;
   height: 590px;
@@ -64,9 +80,8 @@ body {
 }
 .currentTurn {
   position: relative;
-  top: -685px;
-  margin-bottom: -25%;
-  left: -1000px;
+  margin-left: 14%;
+  top: -180px;
   width: 200px;
   height: 200px;
   background-color: white;
@@ -82,8 +97,9 @@ body {
   border: 1px solid black;
   border-radius: 50%;
   display: inline-block;
-  top: -520px;
-  visibility: hidden;
+  margin-top: -37px;
+  /* top: -520px; */
+  /* visibility: hidden; */
 }
 .whitePieceOut {
   position: relative;
@@ -93,8 +109,9 @@ body {
   border: 1px solid black;
   border-radius: 50%;
   display: inline-block;
-  top: -290px;
-  visibility: hidden;
+  margin-top: -37px;
+  /* top: -290px; */
+  /* visibility: hidden; */
 }
 .test {
   position: absolute;
@@ -106,7 +123,7 @@ body {
   visibility: hidden;
 }
 .toggle {
-  margin: -9% 0 0 47%;
+  margin: -4% 0 0 47%;
   width: 70px;
   height: 45px;
   background-color: #2B7A78;
@@ -128,7 +145,7 @@ body {
   line-height: 1.3;
   font-size: 48px;
 }
-#red2 {
+/* #red2 {
   top: -495px;
   left: -66px;
 }
@@ -172,13 +189,13 @@ body {
 #red12 {
   top: -516px;
   left: 765px;
-}
+} */
 #white1 {
-  left: 626px;
+  /* left: 626px; */
   text-align: center;
   line-height: 1.3;
   font-size: 48px;
-}
+/* }
 #white2 {
   left: 560px;
   top: -265px;
@@ -221,4 +238,4 @@ body {
 #white12 {
   left: -26px;
   top: -145px;
-}
+} */

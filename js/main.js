@@ -1,3 +1,6 @@
+// Turn the 8 arrays into a single arrays
+// Create the long html with loops
+// Shorten code
 let picking = false;
 let moving = false;
 let turn = 0;
@@ -23,12 +26,15 @@ $(document).ready(function() {
   let highlighted = [];
   let redOut = {};
   let whiteOut = {};
+  // Creating Side Red Pieces
   for (let i = 1; i < 13; i++) {
     redOut[`$piece${i}`] = eval(`$('#red${i}')`);
   }
+  // Creating Side White Pieces
   for (let i = 1; i < 13; i++) {
     whiteOut[`$piece${i}`] = eval(`$('#white${i}')`);
   }
+  // Assinging squares variables // Add HTML
   for (let i = 1; i < 65; i++) {
     highlighted[i] = false;
     squares[`$box${i}`] = eval(`$('.box${i}')`);
@@ -345,7 +351,6 @@ $(document).ready(function() {
     picking = true;
   }
   const $currentTurn = $('.currentTurn');
-  let toggle = 0;
   const changeTurn = function () {
     let showReds = 12-totalRedPieces;
     if (toggle === 1) {
@@ -353,12 +358,22 @@ $(document).ready(function() {
       whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`);
     }
     if (toggle === 0) {
+      let tempCount = 1;
       for (let i = 1; i <= showReds; i++) {
-        redOut[`$piece${i}`].css({visibility: "visible"});
+        redOut[`$piece${tempCount}`].css({visibility: "visible"});
+        tempCount += 2
+        if (tempCount === 13) {
+          tempCounter = 2;
+        }
       }
+      tempCount = 1;
       let showWhites = 12-totalWhitePieces;
       for (let i = 1; i <= showWhites; i++) {
-        whiteOut[`$piece${i}`].css({visibility: "visible"});
+        whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
+        tempCount += 2
+        if (tempCount === 13) {
+          tempCounter = 2;
+        }
       }
     }
     if (totalRedPieces === 0) {
@@ -373,45 +388,32 @@ $(document).ready(function() {
     }
   }
   const $toggleButton = $('.toggle');
-  let wigout = 0;
-  let counter = 0;
+  let toggle = 0;
   $toggleButton.on("click", function() {
-    if (wigout === 0) {
-      counter = 0;
-      wigout = 1;
-    } else if (wigout === 1 && toggle === 1) {
-      counter = 2;
-    } else {
-      counter = 0;
+    if (toggle === 0) {
+      for (i = 2; i < 13; i++) {
+        redOut[`$piece${i}`].css({visibility: "hidden"});
+        whiteOut[`$piece${i}`].css({visibility: "hidden"});
+      }
+      $currentTurn.css({visibility: "hidden"});
+      redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`).css({visibility: "visible", top: "32%"});
+      whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`).css({visibility: "visible", top: "32%"});
+      toggle = 1;
     }
-    console.log(counter);
-    console.log("HELLO");
-    for (j = 0; j <= counter; j++) {
-      if (toggle === 0) {
-        for (i = 2; i < 13; i++) {
-          redOut[`$piece${i}`].css({visibility: "hidden"});
-          whiteOut[`$piece${i}`].css({visibility: "hidden"});
-        }
-        $currentTurn.css({width: "60px", height: "60px", border: "1px solid black", top: "-762px", left: "-166px"});
-        redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`).css({top: "-460px", visibility: "visible"});
-        whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`).css({left: "625px", top: "-229px", visibility: "visible"});
-        $toggleButton.css({marginTop: "-9.7%"});
-        toggle = 1;
+    else {
+      console.log(totalWhitePieces,totalRedPieces);
+      $currentTurn.css({visibility: "visible"});
+      redOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-3%"})
+      whiteOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-3%"})
+      redOut.$piece2.css({top: "4%"});
+      whiteOut.$piece2.css({top: "4%"});
+      for (i = 1; i <= 12-totalWhitePieces; i++) {
+        whiteOut[`$piece${i}`].css({visibility: "visible"});
       }
-      else {
-        $currentTurn.css({width: "200px", height: "200px", border: "2px solid black", top: "-685px", left: "-1000px"});
-        redOut.$piece1.html("&nbsp;").css({top: "-534px", visibility: "hidden"});
-        whiteOut.$piece1.html("&nbsp;").css({left: "626px", top: "-304px", visibility: "hidden"});
-        whiteOut.$piece1.toggle();
-        $toggleButton.css({marginTop: "-9.7%"});
-        for (i = 1; i <= 12-totalWhitePieces; i++) {
-          whiteOut[`$piece${i}`].css({visibility: "visible"});
-        }
-        for (i = 1; i <= 12-totalRedPieces; i++) {
-          redOut[`$piece${i}`].css({visibility: "visible"});
-        }
-        toggle = 0;
+      for (i = 1; i <= 12-totalRedPieces; i++) {
+        redOut[`$piece${i}`].css({visibility: "visible"});
       }
+      toggle = 0;
     }
   });
   gameStart();
