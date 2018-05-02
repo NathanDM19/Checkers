@@ -351,14 +351,15 @@ $(document).ready(function() {
     picking = true;
   }
   const $currentTurn = $('.currentTurn');
+  const $currentTurnSmall = $('.currentTurnSmall');
   const changeTurn = function () {
-    let showReds = 12-totalRedPieces;
     if (toggle === 1) {
       redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`);
       whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`);
     }
     if (toggle === 0) {
       let tempCount = 1;
+      let showReds = 12-totalRedPieces;
       for (let i = 1; i <= showReds; i++) {
         redOut[`$piece${tempCount}`].css({visibility: "visible"});
         tempCount += 2
@@ -383,8 +384,10 @@ $(document).ready(function() {
     }
     if (turn === 1) {
       $currentTurn.css({backgroundColor: "red"});
+      $currentTurnSmall.css({backgroundColor: "red"});
     } else {
       $currentTurn.css({backgroundColor: "white"});
+      $currentTurnSmall.css({backgroundColor: "white"});
     }
   }
   const $toggleButton = $('.toggle');
@@ -396,6 +399,7 @@ $(document).ready(function() {
         whiteOut[`$piece${i}`].css({visibility: "hidden"});
       }
       $currentTurn.css({visibility: "hidden"});
+      $currentTurnSmall.css({visibility: "visible"});
       redOut.$piece1.text(`${Math.abs(totalRedPieces-12)}`).css({visibility: "visible", top: "32%"});
       whiteOut.$piece1.text(`${Math.abs(totalWhitePieces-12)}`).css({visibility: "visible", top: "32%"});
       toggle = 1;
@@ -403,15 +407,28 @@ $(document).ready(function() {
     else {
       console.log(totalWhitePieces,totalRedPieces);
       $currentTurn.css({visibility: "visible"});
+      $currentTurnSmall.css({visibility: "hidden"});
       redOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-3%"})
       whiteOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-3%"})
       redOut.$piece2.css({top: "4%"});
       whiteOut.$piece2.css({top: "4%"});
-      for (i = 1; i <= 12-totalWhitePieces; i++) {
-        whiteOut[`$piece${i}`].css({visibility: "visible"});
+      let tempCount = 1;
+      let showReds = 12-totalRedPieces;
+      for (let i = 1; i <= showReds; i++) {
+        redOut[`$piece${tempCount}`].css({visibility: "visible"});
+        tempCount += 2
+        if (tempCount === 13) {
+          tempCounter = 2;
+        }
       }
-      for (i = 1; i <= 12-totalRedPieces; i++) {
-        redOut[`$piece${i}`].css({visibility: "visible"});
+      tempCount = 1;
+      let showWhites = 12-totalWhitePieces;
+      for (let i = 1; i <= showWhites; i++) {
+        whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
+        tempCount += 2
+        if (tempCount === 13) {
+          tempCounter = 2;
+        }
       }
       toggle = 0;
     }

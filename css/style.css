@@ -87,6 +87,18 @@ body {
   border: 2px solid black;
   display: inline-block;
 }
+.currentTurnSmall {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid black;
+  display: inline-block;
+  top: -263px;
+  left: -296px;
+  visibility: hidden;
+}
 .redPieceOut {
   position: relative;
   width: 60px;
@@ -119,7 +131,7 @@ body {
   visibility: hidden;
 }
 .toggle {
-  margin: -4% 0 0 47%;
+  margin: -4% auto 0;
   width: 70px;
   height: 45px;
   background-color: #2B7A78;
