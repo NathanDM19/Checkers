@@ -12,7 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-database.js"></script>
   <script src="js/jq.js" charset="utf-8"></script>
-  <script src="js/main.js" charset="utf-8"></script>
+  <script src="js/mainR.js" charset="utf-8"></script>
 </head>
 <body>
   <h1 class="title">Checkers</h1>
@@ -126,6 +126,27 @@
   };
   firebase.initializeApp(config);
   let database = firebase.database();
+
+  const boardRef = database.ref('board');
+  const playerCountRef = database.ref('playerCount');
+  const turnRef = database.ref('turn');
+  const kingRef = database.ref('king');
+  const whitePiecesRef = database.ref('whitePieces');
+  const redPiecesRef = database.ref('redPieces')
+  let playerID;
+
+  // initialise player connection/disconnection
+  playerCountRef.once('value', function(val) {
+    count = val.val();
+    console.log("Player ID: ",count);
+    playerID = val.val();
+    loadFirebase();
+    if (count < 2)   {
+      count++;
+      playerCountRef.set(count);
+      playerCountRef.onDisconnect().set(count-1);
+    }
+  });
 </script>
 </body>
 </html>
