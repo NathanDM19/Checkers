@@ -21,7 +21,7 @@ Checkers is live and playable on this site: https://checkers-nathan.firebaseapp.
 
 ## Built With
 
-HTML, CSS, JavaScript, Firebase for multiplay
+HTML, CSS, JavaScript, Firebase for multiplayer.
 
 ## Authors
 
