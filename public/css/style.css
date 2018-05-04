@@ -39,25 +39,25 @@ body {
 }
 .gameBoard {
   margin: 5% 0 5% 0.5%;
-  border: 5px solid #17252A;
-  width: 590px;
-  height: 590px;
+  border: 5px solid black;
+  width: 592px;
+  height: 592px;
   display: inline-block;
+  /* border-radius: 1%; */;
 }
 .square {
-  margin-top: -1px;
+  margin-bottom: -5px;
   margin-left: -1px;
-  margin-right: -4px;
-  margin-bottom: -4px;
   width: 75px;
   height: 75px;
   display: inline-block;
   box-sizing: border-box;
-  border: 1px solid #17252A;
-  background-color: #2B7A78;
+  border: 0.1px solid black;
+  background-color: #104241;
+  /* visibility: hidden; */
 }
 .square:hover {
-  background-color: #3AAFA9 !important;
+  background-color: #44ddd5	 !important;
   cursor: pointer;
 }
 .whitePiece {
@@ -152,6 +152,7 @@ body {
   font-size: 18px;
   padding-top: 5px;
   padding-bottom: 5px;
+  background-color: #44ddd5;
 }
 #red1 {
   text-align: center;

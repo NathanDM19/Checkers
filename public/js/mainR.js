@@ -25,16 +25,23 @@ $(document).ready(function() {
   // Object  holding all the White Pieces that are out
   let whiteOut = {};
   // Creating Side Red Pieces
+  const $redContainer = $('.redContainer');
+  const $whiteContainer = $('.whiteContainer');
   for (let i = 1; i < 13; i++) {
-    redOut[`piece${i}`] = $(`#red${i}`);
+    redOut[`$piece${i}`] = $(`<div class="redPieceOut" id="red${i}">`);
+    $redContainer.append(redOut[`$piece${i}`]);
+    whiteOut[`$piece${i}`] = $(`<div class="whitePieceOut" id="white${i}">`);
+    $whiteContainer.append(whiteOut[`$piece${i}`]);
+    $
   }
   // Creating Side White Pieces
   for (let i = 1; i < 13; i++) {
-    whiteOut[`piece${i}`] = $(`#white${i}`);
   }
   // Variables to hold the square the user is moving from and to
   let squareFrom;
   let squareTo;
+  // Game board jQ
+  const $gameBoard = $('.gameBoard');
   // Creating and setting whoAmI
   $whoAmI = $('<p>');
   $whoAmI.css({fontSize: "50px", position: "absolute", top: "50px", left: "220px", backgroundColor: "#2B7A78", border: "2px solid black", borderRadius: "50%", padding: "20px"});
@@ -44,8 +51,9 @@ $(document).ready(function() {
     // Setting highlighted and king Array to 65 length and all false
     highlighted[i] = false;
     king[i] = false;
-    // Assinging all squares to a key value pair in the squares object
-    squares[`$box${i}`] =  $(`.box${i}`);
+    // Creating square divs and adding their jQuery elements into the squares object
+    squares[`$box${i}`] = $(`<div class="square box${i}">`);
+    $gameBoard.append(squares[`$box${i}`]);
     squares[`$box${i}`].on("click", function() {
       // Only allows Player 0 to move White pieces on their go and Player 1 to move Red Pieces on their go
       // This is to stop spectators from making moves
@@ -53,7 +61,7 @@ $(document).ready(function() {
         // If the current square isn't highlighted and no squares have been highlighted yet.
         if (!highlighted[i] && totalHighlighted === 0) {
           // Changes background of square to show selection
-          squares[`$box${i}`].css({backgroundColor: "#3AAFA9"});
+          squares[`$box${i}`].css({backgroundColor: "#2B7A78"});
           // Sets index of square in highlighted array to show that it is highlighted
           highlighted[i] = true;
           // Setting variable to show that a square is highlighted, allowing the next click to make a move.
@@ -71,7 +79,7 @@ $(document).ready(function() {
         // Resets all highlighted squares
         resetShowMoves();
         // Highlighting new squares background
-        squares[`$box${i}`].css({backgroundColor: "#3AAFA9"});
+        squares[`$box${i}`].css({backgroundColor: "#44ddd5"});
         // Changing original squares highlight to false and setting new one to true
         highlighted[squareFrom] = false;
         highlighted[i] = true;
@@ -92,8 +100,23 @@ $(document).ready(function() {
   }
   // Function to reset all squares backgrounds to un-highlighted
   const resetShowMoves = function () {
-    for (let i = 1; i < 65; i++) {
+    for (let i = 2; i < 65; i+= 2) {
       squares[`$box${i}`].css({backgroundColor: "#2B7A78"});
+      if (i === 8) {
+        i = 7;
+      } else if (i === 15) {
+        i = 16;
+      } else if (i === 24) {
+        i = 23;
+      } else if (i === 31) {
+        i = 32;
+      } else if (i === 40) {
+        i = 39;
+      } else if (i === 47) {
+        i = 48;
+      } else if (i === 56) {
+        i = 55;
+      }
     }
   }
   // Move check, has 2 uses, first is to see if a move can be made when the user defines their move. Also will check possible moves and shows the user when they select their initial piece
@@ -132,7 +155,7 @@ $(document).ready(function() {
     // If a move/ possible move is valid, valid move would be set to true in one of the above if statements, this check will now run.
     if(validMove){
       if (show) { // If the program is just showing possible moves, this will run
-        squares[`$box${squareTo}`].css({backgroundColor: "#3AAFA9"})
+        squares[`$box${squareTo}`].css({backgroundColor: "#44ddd5"})
       } else { // Else the function was run to move a piece, moveTo is called to actually move the piece
         moveTo(squareFrom, squareTo, turnLocal, jump);
       }
@@ -161,11 +184,11 @@ $(document).ready(function() {
       king[squareTo] = true;
     }
     // Remove the piece from the initial square, and add it to the new square
-    pieces[`piece${squareFrom}`].removeAttr("class");
-    pieces[`piece${squareTo}`].attr("class", `${colour}Piece`);
+    pieces[`$piece${squareFrom}`].removeAttr("class");
+    pieces[`$piece${squareTo}`].attr("class", `${colour}Piece`);
     // Also add king class if the piece is a king
     if (king[squareTo]) {
-      pieces[`piece${squareTo}`].addClass("king");
+      pieces[`$piece${squareTo}`].addClass("king");
     }
     // Reset total highlighted
     totalHighlighted = 0;
@@ -182,9 +205,10 @@ $(document).ready(function() {
         middleSquare = ((squareTo-squareFrom)/2)+squareFrom;
       }
       // Removing the middle piece
-      pieces[`piece${middleSquare}`].removeAttr("class");
+      pieces[`$piece${middleSquare}`].removeAttr("class");
       // Updating board array getting rid of middle piece
       board[middleSquare] = "";
+      king[middleSquare] = false;
       // Updates how many pieces are taken.
       if (turnLocal === 0) {
         redPieces +=1;
@@ -192,7 +216,6 @@ $(document).ready(function() {
         whitePieces +=1;
       }
       // Checks to see if the piece can do another jump, using the jumpCheck function
-      console.log(squareTo/8, (squareTo-1)%8);
       if (squareTo/8 <= 6 && (squareTo-1)%8 > 1) {
         jumpCheck(squareTo, squareTo+7, squareTo+14, turnLocal);
       }
@@ -232,16 +255,17 @@ $(document).ready(function() {
   const gameStart = function () {
     redPieces = 0;
     whitePieces = 0;
+    resetShowMoves();
     board = ["", "", "0", "", "0", "", "0", "", "0", "0", "", "0", "", "0", "", "0", "", "", "0", "", "0", "", "0", "", "0", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "1", "", "1", "", "1", "", "1", "", "", "1", "", "1", "", "1", "", "1", "1", "", "1", "", "1", "", "1", ""];
     // Loop to create pieces and jQuery elements for them
     for (let i = 1; i <= 64; i++) {
       piece = $(`<div id="piece${i}">`);
       squares[`$box${i}`].append(piece);
-      pieces[`piece${i}`] = eval(`$('#piece${i}')`);
+      pieces[`$piece${i}`] = eval(`$('#piece${i}')`);
     }
     // Assinging class names to pieces on the board so they appear
     for (let i = 2; i <= 24; i+=2) {
-      pieces[`piece${i}`].attr("class", "whitePiece");
+      pieces[`$piece${i}`].attr("class", "whitePiece");
       if (i === 8) {
         i = 7;
       }
@@ -250,7 +274,7 @@ $(document).ready(function() {
       }
     }
     for (let i = 41; i <=64; i+=2) {
-      pieces[`piece${i}`].attr("class", "redPiece");
+      pieces[`$piece${i}`].attr("class", "redPiece");
       if (i === 47) {
         i = 48;
       }
@@ -266,8 +290,8 @@ $(document).ready(function() {
   const changeTurn = function (turnLocal) {
     // For the small circle, this updates the number inside of them
     if (toggle === 1) {
-      redOut.piece1.text(redPieces);
-      whiteOut.piece1.text(whitePieces);
+      redOut.$piece1.text(redPieces);
+      whiteOut.$piece1.text(whitePieces);
     }
     else if (toggle === 0) {
       let tempCount = 1;
@@ -276,7 +300,7 @@ $(document).ready(function() {
         if (tempCount === 13) {
           tempCount = 2;
         }
-        redOut[`piece${tempCount}`].css({visibility: "visible"});
+        redOut[`$piece${tempCount}`].css({visibility: "visible"});
         tempCount += 2
       }
       tempCount = 1;
@@ -284,7 +308,7 @@ $(document).ready(function() {
         if (tempCount === 13) {
           tempCount = 2;
         }
-        whiteOut[`piece${tempCount}`].css({visibility: "visible"});
+        whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
         tempCount += 2
       }
     }
@@ -321,30 +345,30 @@ $(document).ready(function() {
     // Default toggle state, for every piece taken a piece is shown on the right as well as a big turn circle on the left
     if (toggle === 0) {
       for (i = 2; i < 13; i++) {
-        redOut[`piece${i}`].css({visibility: "hidden"});
-        whiteOut[`piece${i}`].css({visibility: "hidden"});
+        redOut[`$piece${i}`].css({visibility: "hidden"});
+        whiteOut[`$piece${i}`].css({visibility: "hidden"});
       }
       $currentTurn.css({visibility: "hidden"});
       $currentTurnSmall.css({visibility: "visible"});
-      redOut.piece1.text(redPieces).css({visibility: "visible", top: "32%"});
-      whiteOut.piece1.text(whitePieces).css({visibility: "visible", top: "32%"});
+      redOut.$piece1.text(redPieces).css({visibility: "visible", top: "32%"});
+      whiteOut.$piece1.text(whitePieces).css({visibility: "visible", top: "32%"});
       toggle = 1;
     }
     // Other toggle state, shows amount of pieces taken in a single piece with a number in the middle. The turn circle is between these and is smaller
     else {
       $currentTurn.css({visibility: "visible"});
       $currentTurnSmall.css({visibility: "hidden"});
-      redOut.piece1.html("&nbsp;").css({visibility: "hidden", top: "-3%"})
-      whiteOut.piece1.html("&nbsp;").css({visibility: "hidden", top: "-3%"})
-      redOut.piece2.css({top: "4%"});
-      whiteOut.piece2.css({top: "4%"});
+      redOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-2%"})
+      redOut.$piece2.css({top: "5%"});
+      whiteOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-2%"})
+      whiteOut.$piece2.css({top: "5%"});
       let tempCount = 1;
       // Same loops as earlier showing the right pieces based on how many are taken, 1,3,5,7,9,11,2,4,6,8,10,12
       for (let i = 1; i <= redPieces; i++) {
         if (tempCount === 13) {
           tempCount = 2;
         }
-        redOut[`piece${tempCount}`].css({visibility: "visible"});
+        redOut[`$piece${tempCount}`].css({visibility: "visible"});
         tempCount += 2
       }
       tempCount = 1;
@@ -352,7 +376,7 @@ $(document).ready(function() {
         if (tempCount === 13) {
           tempCount = 2;
         }
-        whiteOut[`piece${tempCount}`].css({visibility: "visible"});
+        whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
         tempCount += 2
       }
       toggle = 0;
@@ -367,11 +391,13 @@ $(document).ready(function() {
     // Loops through the board array, and updates the pieces shown on the board to match that
     for (let i = 1; i < 65; i++) {
       if (board[i] === "0") {
-        pieces[`piece${i}`].addClass("whitePiece");
+        pieces[`$piece${i}`].removeClass("redPiece");
+        pieces[`$piece${i}`].addClass("whitePiece");
       } else if (board[i] === "1") {
-        pieces[`piece${i}`].addClass("redPiece");
+        pieces[`$piece${i}`].removeClass("whitePiece");
+        pieces[`$piece${i}`].addClass("redPiece");
       } else {
-        pieces[`piece${i}`].removeAttr("class");
+        pieces[`$piece${i}`].removeAttr("class");
       }
     }
   })
@@ -382,9 +408,9 @@ $(document).ready(function() {
     // Loops through the king array, and updates the pieces shown on the board to match that
     for (let i = 1; i < 65; i++) {
       if (king[i]) {
-        pieces[`piece${i}`].addClass("king");
+        pieces[`$piece${i}`].addClass("king");
       } else {
-        pieces[`piece${i}`].removeClass("king");
+        pieces[`$piece${i}`].removeClass("king");
       }
     }
   })
@@ -405,11 +431,17 @@ $(document).ready(function() {
     whitePieces = data.val();
     let tempCount = 1;
     tempCount = 1;
+    for (let i = 1; i <= 12; i++) {
+      whiteOut[`$piece${i}`].css({visibility: "hidden"});
+    }
+    if (toggle === 1) {
+      whiteOut.$piece1.css({visibility: "visible"}).text(whitePieces);
+    }
     for (let i = 1; i <= whitePieces; i++) {
       if (tempCount === 13) {
         tempCount = 2;
       }
-      whiteOut[`piece${tempCount}`].css({visibility: "visible"});
+      whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
       tempCount += 2
     }
   });
@@ -417,11 +449,17 @@ $(document).ready(function() {
   redPiecesRef.on('value', function(data) {
     redPieces = data.val();
     let tempCount = 1;
+    for (let i = 1; i <= 12; i++) {
+      redOut[`$piece${i}`].css({visibility: "hidden"});
+    }
+    if (toggle === 1) {
+      redOut.$piece1.css({visibility: "visible"}).text(redPieces);
+    }
     for (let i = 1; i <= redPieces; i++) {
       if (tempCount === 13) {
         tempCount = 2;
       }
-      redOut[`piece${tempCount}`].css({visibility: "visible"});
+      redOut[`$piece${tempCount}`].css({visibility: "visible"});
       tempCount += 2
     }
   });
@@ -442,7 +480,8 @@ const loadFirebase = function () {
   else if (playerID === 2) {
     $whoAmI.css({color: "black", left: "220px", top: "70px", fontSize: "30px"});
     $whoAmI.text("Spectator");
-  }qqqq
+  }
+  // Restart the database to default values on page open IF it is a player
   if (playerID !== 2) {
     boardRef.set(board);
     turnRef.set(turn);
