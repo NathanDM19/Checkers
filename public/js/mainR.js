@@ -314,9 +314,9 @@ $(document).ready(function() {
     }
     // Check to see if all of a players pieces are taken
     if (redPieces === 12) {
-      console.log("White Wins!");
+      winner("White");
     } else if (whitePieces === 12) {
-      console.log("Red Wins!");
+      winner("Red");
     }
     // Updating the colour for the small and big current Turn circles
     if (turnLocal === 0) {
@@ -337,6 +337,11 @@ $(document).ready(function() {
       whitePiecesRef.set(whitePieces);
       redPiecesRef.set(redPieces);
     }
+  }
+  const winner = function (player) {
+    const $winnerBox = $('<p>');
+    $gameBoard.append($winnerBox);
+    $winnerBox.css({width: "50%", backgroundColor: "#3AAFA9", border: "2px solid black", position: "relative", fontSize: "50px", top: "-325px", margin: "0 auto", textAlign: "center"}).text(`${player} wins!`);
   }
   // Toggle button at the bottom, toggles UI types
   const $toggleButton = $('.toggle');
