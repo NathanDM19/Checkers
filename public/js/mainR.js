@@ -425,7 +425,7 @@ $(document).ready(function() {
     }
     if (data.val() === 0) {
       $currentTurn.css({backgroundColor: "white"});
-      $currentTurn.css({backgroundColor: "white"})
+      $currentTurnSmall.css({backgroundColor: "white"})
     }
   })
   // White pieces captured
