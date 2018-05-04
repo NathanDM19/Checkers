@@ -70,7 +70,7 @@ $(document).ready(function() {
           squareFrom = i;
           // Loop which runs moveCheck to highlight all posssible moves
           for (let i = 0; i < 65; i++) {
-            moveCheck(squareFrom, i, turn, true)
+            moveCheck(squareFrom, i, turn, true);
           }
         }
       }
@@ -87,7 +87,7 @@ $(document).ready(function() {
         squareFrom = i;
         // Loop which runs moveCheck to highlight all posssible moves
         for (let i = 0; i < 65; i++) {
-          moveCheck(squareFrom, i, turn, true)
+          moveCheck(squareFrom, i, turn, true);
         }
       }
       // If a square is highlighted and the user tries to move, checks to see if this move can be made
@@ -155,12 +155,12 @@ $(document).ready(function() {
     // If a move/ possible move is valid, valid move would be set to true in one of the above if statements, this check will now run.
     if(validMove){
       if (show) { // If the program is just showing possible moves, this will run
-        squares[`$box${squareTo}`].css({backgroundColor: "#44ddd5"})
+        squares[`$box${squareTo}`].css({backgroundColor: "#44ddd5"});
       } else { // Else the function was run to move a piece, moveTo is called to actually move the piece
         moveTo(squareFrom, squareTo, turnLocal, jump);
       }
     }
-  }
+  };
   // The move is considered valid and this moveTo will move the piece
   const moveTo = function (squareFrom, squareTo, turnLocal, jump) {// Takes the start square, the end square, whose turn it is and if the move is a jump
     // Reset all highlighted squares
@@ -232,7 +232,7 @@ $(document).ready(function() {
     // Running the changeTurn function
     changeTurn(turnLocal);
     return;
-  }
+  };
   // This fuction is to check if, once the original jump has happened, if there is another jump that the piece can perform.
   const jumpCheck = function (squareTo, middleSquare, squareTo2, turnLocal) { // This test is run 4 times per piece, testing each of the 4 possible jump spots
     // Temporary variable so that we can change the turn variable to the opposite
@@ -250,7 +250,7 @@ $(document).ready(function() {
       }, 500);
       return;
     }
-  }
+  };
   // Function which is run when the game is started, sets variables.
   const gameStart = function () {
     redPieces = 0;
@@ -301,7 +301,7 @@ $(document).ready(function() {
           tempCount = 2;
         }
         redOut[`$piece${tempCount}`].css({visibility: "visible"});
-        tempCount += 2
+        tempCount += 2;
       }
       tempCount = 1;
       for (let i = 1; i <= whitePieces; i++) {
@@ -309,7 +309,7 @@ $(document).ready(function() {
           tempCount = 2;
         }
         whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
-        tempCount += 2
+        tempCount += 2;
       }
     }
     // Check to see if all of a players pieces are taken
@@ -337,12 +337,12 @@ $(document).ready(function() {
       whitePiecesRef.set(whitePieces);
       redPiecesRef.set(redPieces);
     }
-  }
+  };
   const winner = function (player) {
     const $winnerBox = $('<p>');
     $gameBoard.append($winnerBox);
     $winnerBox.css({width: "50%", backgroundColor: "#3AAFA9", border: "2px solid black", position: "relative", fontSize: "50px", top: "-325px", margin: "0 auto", textAlign: "center"}).text(`${player} wins!`);
-  }
+  };
   // Toggle button at the bottom, toggles UI types
   const $toggleButton = $('.toggle');
   let toggle = 0;
@@ -363,9 +363,9 @@ $(document).ready(function() {
     else {
       $currentTurn.css({visibility: "visible"});
       $currentTurnSmall.css({visibility: "hidden"});
-      redOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-2%"})
+      redOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-2%"});
       redOut.$piece2.css({top: "5%"});
-      whiteOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-2%"})
+      whiteOut.$piece1.html("&nbsp;").css({visibility: "hidden", top: "-2%"});
       whiteOut.$piece2.css({top: "5%"});
       let tempCount = 1;
       // Same loops as earlier showing the right pieces based on how many are taken, 1,3,5,7,9,11,2,4,6,8,10,12
@@ -374,7 +374,7 @@ $(document).ready(function() {
           tempCount = 2;
         }
         redOut[`$piece${tempCount}`].css({visibility: "visible"});
-        tempCount += 2
+        tempCount += 2;
       }
       tempCount = 1;
       for (let i = 1; i <= whitePieces; i++) {
@@ -382,7 +382,7 @@ $(document).ready(function() {
           tempCount = 2;
         }
         whiteOut[`$piece${tempCount}`].css({visibility: "visible"});
-        tempCount += 2
+        tempCount += 2;
       }
       toggle = 0;
     }
@@ -405,7 +405,7 @@ $(document).ready(function() {
         pieces[`$piece${i}`].removeAttr("class");
       }
     }
-  })
+  });
   // The king array in the database
   kingRef.on('value', function(data) {
     // Setting local king to database king
@@ -418,7 +418,7 @@ $(document).ready(function() {
         pieces[`$piece${i}`].removeClass("king");
       }
     }
-  })
+  });
   // The turn variable
   turnRef.on('value', function(data) {
     // Setting local turn to database turn
@@ -432,7 +432,7 @@ $(document).ready(function() {
       $currentTurn.css({backgroundColor: "white"});
       $currentTurnSmall.css({backgroundColor: "white"})
     }
-  })
+  });
   // White pieces captured
   whitePiecesRef.on('value', function(data) {
     whitePieces = data.val();
@@ -477,7 +477,7 @@ const loadFirebase = function () {
   // This tells the user what player they are based on playerID, the first player to join will be player 0, and be white.
   // The second player will be player 1 and be red, and anyone past this will be player 2 and be considered a spectator
   if (playerID === 0) {
-    $whoAmI.css({color: "white"})
+    $whoAmI.css({color: "white"});
     $whoAmI.text("White");
   }
   else if (playerID === 1) {
@@ -496,4 +496,4 @@ const loadFirebase = function () {
     whitePiecesRef.set(whitePieces);
     redPiecesRef.set(redPieces);
   }
-}
+};
