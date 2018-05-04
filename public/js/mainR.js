@@ -421,9 +421,11 @@ $(document).ready(function() {
     // Updating the turn circle based on whose turn it is
     if (data.val() === 1) {
       $currentTurn.css({backgroundColor: "red"})
+      $currentTurnSmall.css({backgroundColor: "red"})
     }
     if (data.val() === 0) {
       $currentTurn.css({backgroundColor: "white"});
+      $currentTurn.css({backgroundColor: "white"})
     }
   })
   // White pieces captured
